@@ -19,6 +19,7 @@
   "homepage": "https://github.com/nicolas-schmitt/slack-utility-bot",
   "dependencies": {
     "guid": "0.0.12",
+    "html-entities": "^1.1.2",
     "natural": "^0.2.1",
     "require-directory": "^2.1.0",
     "slack-client": "^1.4.0",
