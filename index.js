@@ -6,10 +6,11 @@ stringformat.extend(String.prototype);
 
 function Bot(settings) {
     var self = this;
-    this.slack = new Slack(settings.slackToken, settings.autoReconnect, settings.autoMark);
     this.id = settings.botId;
     this.mention = '<@{0}>'.format(this.id);
+    this.locks = {};
 
+    this.slack = new Slack(settings.slackToken, settings.autoReconnect, settings.autoMark);
     this.slack.on('message', function(message){
         self.getResponse(message);
     });
@@ -30,15 +31,26 @@ Bot.prototype.getResponse = function(message) {
         
         if (this.areYouTalkingToMe(channel, message)) {
             var cleanMessage = this.removeMention(message.text);
-            var keyword = this.getKeyword(cleanMessage);
-            var botling = this.findMatchingBotling(keyword);
-    
-            if (botling != null){
-                cleanMessage = this.removeKeyword(cleanMessage, keyword);
-                var response = botling.getResponse(cleanMessage);
-                if (response != '') {
-                    channel.send(response);
-                }
+            var status = this.getLockStatus(cleanMessage, sender);
+            var response = '';
+            
+            switch(status) {
+                case 'locked':
+                    response = this.getLockedResponse(cleanMessage, sender);
+                    break;
+                case 'locking':
+                    response = this.getLockingResponse(cleanMessage, sender);
+                    break;
+                case 'unlocking':
+                    response = this.getUnlockingResponse(sender);
+                    break;
+                default:
+                    response = this.getDefaultResponse(cleanMessage, sender);
+                    break;
+            }
+            
+            if (response != '') {
+                channel.send(response);
             }
         }
     }
@@ -63,6 +75,64 @@ Bot.prototype.removeMention = function(text) {
     }
     
     return result.trim();
+};
+
+Bot.prototype.getLockStatus = function(text, sender) {
+    var status = 'default';
+    var userId = sender.id;
+
+    if (text == '--') {
+        status = 'unlocking';
+    } else if (text[0] == '+') {
+        status = 'locking';
+    } else if (typeof(this.locks[userId]) == 'object' && this.locks[userId] != null) {
+        status = 'locked';
+    }
+
+    return status;
+};
+
+Bot.prototype.getLockedResponse = function(cleanMessage, sender) {
+    var botling = this.locks[sender.id];
+    return botling.getResponse(cleanMessage);
+};
+
+Bot.prototype.getLockingResponse = function(cleanMessage, sender) {
+    cleanMessage = cleanMessage.substring(1);
+    var result = '';
+    var keyword = this.getKeyword(cleanMessage);
+    var botling = this.findMatchingBotling(keyword);
+    
+    if (botling == null) {
+        result = 'Found no botling matching ' + keyword;
+    } else {
+        result = 'Locked on ' + keyword;
+        this.locks[sender.id] = botling;
+    }
+    
+    return result;
+};
+
+Bot.prototype.getUnlockingResponse = function(sender) {
+    var botling = this.locks[sender.id];
+    this.locks[sender.id] = null;
+    
+    return 'Unlocked from ' + botling.keywords[0];
+};
+
+Bot.prototype.getDefaultResponse = function(cleanMessage, sender) {
+    var result = '';
+    var keyword = this.getKeyword(cleanMessage);
+    var botling = this.findMatchingBotling(keyword);
+
+    if (botling == null) {
+        result = 'Found no botling matching ' + keyword;
+    } else {
+        cleanMessage = this.removeKeyword(cleanMessage, keyword);
+        result = botling.getResponse(cleanMessage);
+    }
+    
+    return result;
 };
 
 Bot.prototype.findMatchingBotling = function(keyword) {

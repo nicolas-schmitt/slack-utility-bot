@@ -3,8 +3,7 @@ var stringformat = require('string-format');
 
 stringformat.extend(String.prototype);
 
-function GuidGenerator() {
-}
+function GuidGenerator() {}
 
 GuidGenerator.prototype.keywords = ['guid'];
 
