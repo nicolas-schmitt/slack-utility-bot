@@ -89,7 +89,7 @@ GuidGenerator.prototype.getFormatedGuid = function(format) {
 
         case 'b':
         case 'B':
-            result = '{{0}}'.format(result);
+            result = '{{{0}}}'.format(result);
             break;
             
         case 'p':
