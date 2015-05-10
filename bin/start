@@ -1,0 +1,4 @@
+var Bot = require('../index');
+var settings = require('./settings.json');
+var bot = new Bot(settings);
+bot.connect();

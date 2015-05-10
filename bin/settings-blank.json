@@ -1,0 +1,6 @@
+{
+    "slackToken":"",
+    "botId":"",
+    "autoReconnect": true,
+    "autoMark": true
+}

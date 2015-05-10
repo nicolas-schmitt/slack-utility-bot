@@ -1,0 +1,27 @@
+{
+  "name": "mini-bot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicolas-schmitt/slack-utility-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolas-schmitt/slack-utility-bot/issues"
+  },
+  "homepage": "https://github.com/nicolas-schmitt/slack-utility-bot",
+  "dependencies": {
+    "guid": "0.0.12",
+    "natural": "^0.2.1",
+    "require-directory": "^2.1.0",
+    "slack-client": "^1.4.0",
+    "string-format": "^0.5.0"
+  }
+}
