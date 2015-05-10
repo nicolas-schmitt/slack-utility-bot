@@ -1,16 +1,16 @@
 var Entities = require('html-entities').XmlEntities;
 var entities = new Entities();
 
-function HtmlEncoder() {}
+function HtmlDecoder() {}
 
-HtmlEncoder.prototype.keywords = ["htmldecode", "htmld"];
+HtmlDecoder.prototype.keywords = ["htmldecode", "htmld"];
 
-HtmlEncoder.prototype.getHelp = function() {
+HtmlDecoder.prototype.getHelp = function() {
     return "syntax: htmldecode [text]";
 };
 
-HtmlEncoder.prototype.getResponse = function(message) {
+HtmlDecoder.prototype.getResponse = function(message) {
     return entities.decode(message);
 };
 
-module.exports = new HtmlEncoder();
+module.exports = new HtmlDecoder();
