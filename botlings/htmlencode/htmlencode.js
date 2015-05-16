@@ -13,4 +13,4 @@ HtmlEncoder.prototype.getResponse = function(message) {
     return entities.encodeNonUTF(message);
 };
 
-module.exports = new HtmlEncoder();
+module.exports = HtmlEncoder;

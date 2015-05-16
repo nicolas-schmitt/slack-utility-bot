@@ -15,4 +15,4 @@ HelpManual.prototype.getResponse = function() {
             "guid [count] [format] \n";
 };
 
-module.exports = new HelpManual();
+module.exports = HelpManual;

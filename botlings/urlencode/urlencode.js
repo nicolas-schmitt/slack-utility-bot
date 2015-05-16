@@ -10,4 +10,4 @@ UrlEncoder.prototype.getResponse = function(message) {
     return encodeURIComponent(message);
 };
 
-module.exports = new UrlEncoder();
+module.exports = UrlEncoder;

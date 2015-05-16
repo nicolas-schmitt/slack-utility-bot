@@ -1,0 +1,13 @@
+{
+    "en": {
+        "no match": "Found no botling matching {0}",
+        "locked": "Locked on {0}",
+        "unlocked": "Unlocked from {0}"
+    },
+    "fr": {
+        "no match": "Aucun botling correspondant à {0} n'a été trouvé",
+        "locked": "Attaché à {0}",
+        "unlocked": "Détaché de {0}",
+        "hello": "Bouh !!"
+    }
+}

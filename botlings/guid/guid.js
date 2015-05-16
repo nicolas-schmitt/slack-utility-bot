@@ -105,4 +105,4 @@ GuidGenerator.prototype.getFormatedGuid = function(format) {
     return result;
 };
 
-module.exports = new GuidGenerator();
+module.exports = GuidGenerator;

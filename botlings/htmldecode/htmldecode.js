@@ -13,4 +13,4 @@ HtmlDecoder.prototype.getResponse = function(message) {
     return entities.decode(message);
 };
 
-module.exports = new HtmlDecoder();
+module.exports = HtmlDecoder;

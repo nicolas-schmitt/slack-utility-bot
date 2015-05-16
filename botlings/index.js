@@ -1,3 +1,8 @@
-var requireDirectory = require('require-directory');
-module.exports = requireDirectory(module);
-
+module.exports = {
+    "guid": require('./guid'),
+    "help": require('./help'),
+    "htmldecode": require('./htmldecode'),
+    "htmlencode": require('./htmlencode'),
+    "urldecode": require('./urldecode'),
+    "urlencode": require('./urlencode')
+}

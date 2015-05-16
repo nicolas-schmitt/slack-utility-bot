@@ -1,6 +1,7 @@
 {
     "slackToken":"",
     "botId":"",
+    "locale":"en"
     "autoReconnect": true,
     "autoMark": true
 }
