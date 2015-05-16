@@ -6,7 +6,18 @@ Clone this repository
 ```sh
 git clone https://github.com/nicolas-schmitt/slack-utility-bot.git slack-utility-bot
 ```
-Update the settings file locate in /bin/settings.json
+Install
+```sh
+npm install
+```
+Create a new settings file from the blank one
+```sh
+cp slack-utility-bot/bin/settings-blank.js slack-utility-bot/bin/settings.js
+```
+Update the settings file
+```sh
+vi slack-utility-bot/bin/settings.js
+```
 
 ## Features
 
