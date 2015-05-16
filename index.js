@@ -1,6 +1,6 @@
 var Slack = require('slack-client');
 var stringformat = require('string-format');
-var botlings = require('./botlings');
+var botlingsMap = require('./botlings');
 
 stringformat.extend(String.prototype);
 
@@ -9,6 +9,7 @@ function Bot(settings) {
     this.id = settings.botId;
     this.mention = '<@{0}>'.format(this.id);
     this.locks = {};
+    this.botlings = this.getBotlingsList();
 
     this.slack = new Slack(settings.slackToken, settings.autoReconnect, settings.autoMark);
     this.slack.on('message', function(message){
@@ -61,7 +62,7 @@ Bot.prototype.areYouTalkingToMe = function(channel, message) {
     
     if (channel.is_im) {
         result = true;
-    } else {
+    } else { 
         result = message.text.indexOf(this.mention) != -1;
     }
 
@@ -136,18 +137,14 @@ Bot.prototype.getDefaultResponse = function(cleanMessage, sender) {
 };
 
 Bot.prototype.findMatchingBotling = function(keyword) {
-    var result = null;
+    var result;
     
     if (keyword != null && keyword != '') {
         keyword = keyword.toLowerCase();
-        Object.keys(botlings).forEach(function(name){
-            if(botlings[name].keywords.indexOf(keyword) != -1) {
-                result = botlings[name];
-            }
-        }, this);
+        result = this.botlings[keyword];
     }
     
-    return result;
+    return result || null;
 };
 
 Bot.prototype.getKeyword = function(text) {
@@ -165,5 +162,19 @@ Bot.prototype.getKeyword = function(text) {
 Bot.prototype.removeKeyword = function(text, keyword) {
     return text.substr(keyword.length + 1);
 };
+
+Bot.prototype.getBotlingsList = function() {
+    var result = {};
+    var botling;
+
+    Object.keys(botlingsMap).forEach(function(name){
+        botling = botlingsMap[name];
+        botling.keywords.forEach(function(keyword){
+            result[keyword] = botling;
+        }, this);
+    }, this);
+    
+    return result;
+}
 
 module.exports = Bot;
