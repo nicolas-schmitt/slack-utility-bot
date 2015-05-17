@@ -1,9 +1,9 @@
 {
     "en": {
         "new game":[
-            "{owner} started a game {playerCount, plural,",
-            "    one {alone}",
-            "  other {with {playerCount} players}",
+            "{owner} started a {playerCount, plural,",
+            "    one {game alone}",
+            "  other {{playerCount} player game}",
             "}."
         ],
         "game reset":"Game reset.",
@@ -14,7 +14,7 @@
         "new game":[
             "{owner} a commencé une partie {playerCount, plural,",
             "    one {tout seul}",
-            "  other {avec {playerCount} joueurs}",
+            "  other {de {playerCount} joueurs}",
             "}."
         ],
         "game reset":"Partie remise à zéro.",
