@@ -1,0 +1,24 @@
+{
+    "en": {
+        "new game":[
+            "{owner} started a game {playerCount, plural,",
+            "    one {alone}",
+            "  other {with {playerCount} players}",
+            "}."
+        ],
+        "game reset":"Game reset.",
+        "no game": "You didn't start any game.",
+        "help": "syntax: tarot new game [player1] [player2] ...\ntarot [(!)contract] [margin] [taker] [called]\ntarot [(!)bonus] [player]\ntarot reset"
+    },
+    "fr": {
+        "new game":[
+            "{owner} a commencé une partie {playerCount, plural,",
+            "    one {tout seul}",
+            "  other {avec {playerCount} joueurs}",
+            "}."
+        ],
+        "game reset":"Partie remise à zéro.",
+        "no game": "Vous n'avez commencé aucune partie.",
+        "help": "syntaxe: tarot new game [joueur1] [joueur2] ...\ntarot [(!)contrat] [marge] [preneur] [appelé]\ntarot [(!)annonce] [joueur]\ntarot reset"
+    }
+}

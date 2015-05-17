@@ -4,5 +4,6 @@ module.exports = {
     "htmldecode": require('./htmldecode'),
     "htmlencode": require('./htmlencode'),
     "urldecode": require('./urldecode'),
-    "urlencode": require('./urlencode')
+    "urlencode": require('./urlencode'),
+    "tarot": require('./tarot')
 }
