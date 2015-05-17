@@ -32,32 +32,36 @@ Bot.prototype.getResponse = function(message) {
     
     if (message.type == 'message' && channel != null)
     {
-        console.log(sender.name);
-        console.log(message.text);
+        console.log('{0}: {1}'.format(sender.name, message.text));
+
+        var status = this.getLockStatus(message.text, sender);
+        var response = '';
         
-        if (this.areYouTalkingToMe(channel, message)) {
-            var cleanMessage = this.removeMention(message.text);
-            var status = this.getLockStatus(cleanMessage, sender);
-            var response = '';
-            
-            switch(status) {
-                case 'locked':
-                    response = this.getLockedResponse(cleanMessage, sender);
-                    break;
-                case 'locking':
-                    response = this.getLockingResponse(cleanMessage, sender);
-                    break;
-                case 'unlocking':
-                    response = this.getUnlockingResponse(sender);
-                    break;
-                default:
-                    response = this.getDefaultResponse(cleanMessage, sender);
-                    break;
+        if (status == 'unlocking') {
+            response = this.getUnlockingResponse(sender);
+        } else if (status == 'locked') {
+            response = this.getLockedResponse(message.text, sender);
+        } else {
+            if (this.areYouTalkingToMe(channel, message)) {
+                var cleanMessage = this.removeMention(message.text);
+                status = this.getLockStatus(cleanMessage, sender);
+                
+                switch(status) {
+                    case 'locking':
+                        response = this.getLockingResponse(cleanMessage, sender);
+                        break;
+                    case 'unlocking':
+                        response = this.getUnlockingResponse(sender);
+                        break;
+                    default:
+                        response = this.getDefaultResponse(cleanMessage, sender);
+                        break;
+                }
             }
-            
-            if (response != '') {
-                channel.send(response);
-            }
+        }
+        
+        if (response != '') {
+            channel.send(response);
         }
     }
 };
