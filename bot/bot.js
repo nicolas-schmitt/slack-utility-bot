@@ -100,7 +100,7 @@ Bot.prototype.getLockStatus = function(text, sender) {
 
 Bot.prototype.getLockedResponse = function(cleanMessage, sender) {
     var botling = this.locks[sender.id];
-    return botling.getResponse(cleanMessage);
+    return botling.getResponse(cleanMessage, sender);
 };
 
 Bot.prototype.getLockingResponse = function(cleanMessage, sender) {
@@ -135,7 +135,7 @@ Bot.prototype.getDefaultResponse = function(cleanMessage, sender) {
         result = Globalize.messageFormatter('no match')(keyword);
     } else {
         cleanMessage = this.removeKeyword(cleanMessage, keyword);
-        result = botling.getResponse(cleanMessage);
+        result = botling.getResponse(cleanMessage, sender);
     }
     
     return result;
